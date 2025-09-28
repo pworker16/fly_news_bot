@@ -1,0 +1,72 @@
+name: 🪰 Fly-News-Bot
+
+on:
+  repository_dispatch:
+    types: [fly_news_bot]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  handle-users-commands:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          persist-credentials: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check 4 latest news
+        env:
+          GOOGLE_API_KEY:          ${{ vars.GOOGLE_API_KEY }}
+          DISCORD_WEBHOOKS_JSON:          ${{ vars.DISCORD_WEBHOOKS_JSON }}
+          THEFLY_URL: ${{ vars.THEFLY_URL }}
+          MAX_HEADLINES:       ${{ vars.MAX_HEADLINES }}
+          PAGES_TO_SCROLL:         ${{ vars.PAGES_TO_SCROLL }}
+          SEARCH_WINDOW_MIN:         ${{ vars.SEARCH_WINDOW_MIN }}
+          LOG_DIR:      ${{ vars.LOG_DIR }}
+          USER_AGENT: ${{ vars.USER_AGENT }}
+          HEADLESS:       ${{ vars.HEADLESS }}
+          TZ:       ${{ vars.TZ }}
+          MAX_TEXT_CHARS:       ${{ vars.MAX_TEXT_CHARS }}
+          MAX_HTML_CHARS:       ${{ vars.MAX_HTML_CHARS }}
+          hot_stocks:       ${{ vars.hot_stocks }}
+          rumors:       ${{ vars.rumors }}
+          news:       ${{ vars.news }}
+          earnings:       ${{ vars.earnings }}
+          options:       ${{ vars.options }}
+          nice_to_know:       ${{ vars.nice_to_know }}
+          analyst_rating:       ${{ vars.analyst_rating }}
+
+          
+        run: npm start
+
+      
+      # Commit & push only if there are changes
+      - name: Commit updated state
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+          # stash local changes before pulling
+          git stash --include-untracked || true
+          git pull --rebase origin main
+          git stash pop || true
+      
+          git add data/logs/*.txt
+          git diff --cached --quiet || git commit -m "ci: update state"
+          git push
