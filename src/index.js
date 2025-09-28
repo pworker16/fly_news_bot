@@ -7,6 +7,7 @@ import { findRecentArticle } from './searchNews.js';
 import { summarizeWithGemini } from './summarize.js';
 import { postToDiscord } from './notifyDiscord.js';
 import { fetchAndExtract } from './fetchArticle.js';
+import { passesListingAndCap } from './listingAndCapFilter.js';
 
 
 // Function to check if title contains all words from any exclusion phrase
@@ -67,6 +68,30 @@ async function main() {
       const category = normalizeCategory(rawCategory);
       log('Headline:', title, '| RawCat:', rawCategory, '=>', category);
 
+
+
+      // --- Normalize tickers to array ---
+      const tickersArr = Array.isArray(tickers)
+        ? tickers
+        : (typeof tickers === 'string'
+            ? tickers.split(/[,\s]+/).filter(Boolean)
+            : []);
+
+      // filter out messages with tickers that are not in NASDAQ/NYSE and market cap are less then 1B$
+      let validTickers = [];
+      try {
+        const checks = await Promise.all(
+          tickersArr.map(t => passesListingAndCap(t, { requireEquity: true }))
+        );
+        validTickers = tickersArr.filter((t, i) => checks[i]?.ok);
+        if (!validTickers.length) {
+          log('Filtered out by listing/cap', { headline: title, tickers: tickersArr, checks });
+          continue;
+        }
+      } catch (e) {
+        warn('listing/cap filter failed, skipping headline', { err: e?.message });
+        continue;
+      }
 	  // Skip if title contains any exclusion phrase
       if (containsExclusionPhrase(title, EXCLUSION_PHRASES)) {
         log('Excluded due to phrase match:', title);
@@ -125,7 +150,7 @@ async function main() {
 
 		  // Send to Discord
 		  try {
-			await postToDiscord({ webhookUrl, category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary, tickers, publishDatetime });
+			await postToDiscord({ webhookUrl, category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary, tickers: validTickers.join(","), publishDatetime });
 		  } catch (e) {
 			warn('Discord post failed:', e.message);
 		  }
