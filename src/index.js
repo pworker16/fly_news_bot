@@ -8,7 +8,14 @@ import { summarizeWithGemini } from './summarize.js';
 import { postToDiscord } from './notifyDiscord.js';
 import { fetchAndExtract } from './fetchArticle.js';
 import { passesListingAndCap } from './listingAndCapFilter.js';
+const { DateTime } = require("luxon");
 
+
+function convertToIsraelTime(publishDatetime) {
+  return DateTime.fromFormat(publishDatetime, "yyyy-MM-dd HH:mm:ss", { zone: "America/New_York" })
+    .setZone("Asia/Jerusalem")
+    .toFormat("dd.MM.yyyy HH:mm");
+}
 
 // Function to check if title contains all words from any exclusion phrase
 function containsExclusionPhrase(title, exclusionPhrases) {
@@ -66,6 +73,7 @@ async function main() {
     for (const row of rows) {
       const { title, titleLink, rawCategory, tickers, publishDatetime } = row;
       const category = normalizeCategory(rawCategory);
+	  let israelTime = convertToIsraelTime(publishDatetime);
       log('Headline:', title, '| RawCat:', rawCategory, '=>', category);
 
 
@@ -150,7 +158,7 @@ async function main() {
 
 		  // Send to Discord
 		  try {
-			await postToDiscord({ webhookUrl, category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary, tickers: validTickers.join(","), publishDatetime });
+			await postToDiscord({ webhookUrl, category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary, tickers: validTickers.join(","), israelTime });
 		  } catch (e) {
 			warn('Discord post failed:', e.message);
 		  }
