@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright
+        run: npx playwright install
+
       - name: Check 4 latest news
         env:
           GOOGLE_API_KEY:          ${{ vars.GOOGLE_API_KEY }}
