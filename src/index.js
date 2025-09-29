@@ -74,7 +74,8 @@ async function main() {
       const { title, titleLink, rawCategory, tickers, publishDatetime } = row;
       const category = normalizeCategory(rawCategory);
 	  let israelTime = convertToIsraelTime(publishDatetime);
-      log('Headline:', title, '| RawCat:', rawCategory, '=>', category);
+	if (!israelTime) israelTime = `${publishDatetime} [US/NY]`;
+      log('Headline:', title, '| RawCat:', rawCategory, '=>', category, ', israelTime: ', israelTime);
 
 
 
