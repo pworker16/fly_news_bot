@@ -8,7 +8,7 @@ import { summarizeWithGemini } from './summarize.js';
 import { postToDiscord } from './notifyDiscord.js';
 import { fetchAndExtract } from './fetchArticle.js';
 import { passesListingAndCap } from './listingAndCapFilter.js';
-const { DateTime } = require("luxon");
+import { DateTime } from 'luxon';
 
 
 function convertToIsraelTime(publishDatetime) {
