@@ -74,7 +74,7 @@ async function main() {
       const { title, titleLink, rawCategory, tickers, publishDatetime } = row;
       const category = normalizeCategory(rawCategory);
 	  let israelTime = convertToIsraelTime(publishDatetime);
-	if (!israelTime) israelTime = `${publishDatetime} [US/NY]`;
+	  if (!israelTime) israelTime = `${publishDatetime} [US/NY]`;
       log('Headline:', title, '| RawCat:', rawCategory, '=>', category, ', israelTime: ', israelTime);
 
 
@@ -159,7 +159,7 @@ async function main() {
 
 		  // Send to Discord
 		  try {
-			await postToDiscord({ webhookUrl, category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary, tickers: validTickers.join(","), israelTime });
+			await postToDiscord({ webhookUrl: webhookUrl, category: category, headline: title, articleUrl: (finalUrl ? finalUrl : ""), summary: summary, tickers: validTickers.join(","), publishDatetime: israelTime });
 		  } catch (e) {
 			warn('Discord post failed:', e.message);
 		  }
