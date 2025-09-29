@@ -19,7 +19,7 @@ export async function summarizeWithGemini({ apiKey, flyText, articleText }) {
 	"התשובה שלך צריכה להתאים לפוסט דיסקורד אז תוסיף אימוג'יס כשרלוונטי, נסה לא להשתמש במילים באנגלית כשאפשר",
 	'',
 	'התוכן לתרגום:',
-	safeText
+	flyText
   ].join('\n');
 
   
