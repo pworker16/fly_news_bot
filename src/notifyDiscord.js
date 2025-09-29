@@ -20,6 +20,8 @@ function formatTickers(inputString) {
 }
 
 export async function postToDiscord({ webhookUrl, category, headline, articleUrl, summary, tickers, publishDatetime }) {
+	console.log("publishDatetime: ", publishDatetime);
+	
 if (!webhookUrl) {
 	warn('No webhook configured for category', category);
 	return false;
