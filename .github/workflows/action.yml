@@ -54,6 +54,10 @@ jobs:
           options:       ${{ vars.options }}
           nice_to_know:       ${{ vars.nice_to_know }}
           analyst_rating:       ${{ vars.analyst_rating }}
+          all_news:       ${{ vars.all_news }}
+          general:       ${{ vars.general }}
+          tech_analysis:       ${{ vars.tech_analysis }}
+          events:       ${{ vars.events }}
 
           
         run: npm start

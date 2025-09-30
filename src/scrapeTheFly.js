@@ -20,14 +20,15 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
 
   // Scroll 2 viewport-heights to trigger lazy loading
   for (let i = 0; i < PAGES_TO_SCROLL; i++) {
-    const before = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
-    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 3));
+//    const before = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
+    await page.evaluate(() => window.scrollBy(0, window.innerHeight * 4));
+	log(`Scrolled ${i + 1}/${PAGES_TO_SCROLL}`);
 	
-	await page.waitForFunction(
-	(before) => document.querySelectorAll('table tbody tr').length > before, before, { timeout: 30_000 }
-  ).catch(() => {
-	warn(`No new rows loaded after scroll ${i + 1}`);
-  });
+//	await page.waitForFunction(
+//	(before) => document.querySelectorAll('table tbody tr').length > before, before, { timeout: 5_000 }
+//  ).catch(() => {
+//	warn(`No new rows loaded after scroll ${i + 1}`);
+//  });
   await page.waitForTimeout(1000); // Increased wait for stability
 	
 	
@@ -35,8 +36,8 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
 //    await page.waitForTimeout(600);
 	
 	
-    const after = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
-    log(`Scrolled ${i + 1}/${PAGES_TO_SCROLL} — rows: ${before} -> ${after}`);
+//    const after = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
+//    log(`Scrolled ${i + 1}/${PAGES_TO_SCROLL} — rows: ${before} -> ${after}`);
   }
   // Optional: go back to the top so later anchors/links are in view
   await page.evaluate(() => window.scrollTo(0, 0));
