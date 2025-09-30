@@ -82,9 +82,6 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
 
   await browser.close();
 
-	// sort newest last (based on publishDatetime)
-	rows.sort((a, b) => new Date(b.publishDatetime) - new Date(a.publishDatetime));
-
   // Also log what we parsed (Node side)
   for (const r of rows) {
     log(`parsed: title="${r.title}" | class=${r.rawCategoryClass} | label="${r.rawCategoryLabel}" | topic="${r.rawTopic}" | tickers="${r.tickers}"`);
