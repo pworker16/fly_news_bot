@@ -31,16 +31,16 @@ const LABEL_FALLBACKS = new Map([
 ]);
 
 export const GROUPS_TAG = new Map([
-  ['Hot Stocks', 'news'],
+  ['Hot Stocks', 'all_news'],
   ['Rumors', 'rumors'],
-  ['General', 'news'],
-  ['Periodicals', 'news'],
+  ['General', 'general'],
+  ['Periodicals', 'all_news'],
   ['Earnings', 'earnings'],
-  ['Tech Analysis', 'hot_stocks'],
+  ['Tech Analysis', 'tech_analysis'],
   ['Options', 'options'],
   ['Syndicate', 'nice_to_know'],
-  ['Events', 'nice_to_know'],
-  ['On The Fly', 'news'],
+  ['Events', 'events'],
+  ['On The Fly', 'general'],
   ['Recommendations', 'analyst_rating'],
 ]);
 
