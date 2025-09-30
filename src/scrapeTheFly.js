@@ -18,26 +18,13 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
   await page.waitForSelector('table tbody tr', { timeout: 60_000 }).catch(() => {});
   await page.waitForTimeout(1000);
 
-  // Scroll 2 viewport-heights to trigger lazy loading
+  // Scroll 2 or more viewport-heights to trigger lazy loading
   for (let i = 0; i < PAGES_TO_SCROLL; i++) {
-//    const before = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
     await page.evaluate(() => window.scrollBy(0, window.innerHeight * 4));
 	log(`Scrolled ${i + 1}/${PAGES_TO_SCROLL}`);
-	
-//	await page.waitForFunction(
-//	(before) => document.querySelectorAll('table tbody tr').length > before, before, { timeout: 5_000 }
-//  ).catch(() => {
-//	warn(`No new rows loaded after scroll ${i + 1}`);
-//  });
+
   await page.waitForTimeout(1000); // Increased wait for stability
-	
-	
-//    await page.waitForLoadState('networkidle').catch(() => {});
-//    await page.waitForTimeout(600);
-	
-	
-//    const after = await page.$$eval('table tbody tr', els => els.length).catch(() => 0);
-//    log(`Scrolled ${i + 1}/${PAGES_TO_SCROLL} — rows: ${before} -> ${after}`);
+
   }
   // Optional: go back to the top so later anchors/links are in view
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -95,6 +82,9 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
 
   await browser.close();
 
+	// sort newest last (based on publishDatetime)
+	rows.sort((a, b) => new Date(b.publishDatetime) - new Date(a.publishDatetime));
+
   // Also log what we parsed (Node side)
   for (const r of rows) {
     log(`parsed: title="${r.title}" | class=${r.rawCategoryClass} | label="${r.rawCategoryLabel}" | topic="${r.rawTopic}" | tickers="${r.tickers}"`);
@@ -102,5 +92,6 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
 
   log(`Fetched ${rows.length} headlines.`);
   if (!rows.length) warn('No rows parsed – selectors may need tweaking.');
+  
   return rows;
 }
