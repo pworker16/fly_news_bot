@@ -29,7 +29,7 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
   // Optional: go back to the top so later anchors/links are in view
   await page.evaluate(() => window.scrollTo(0, 0));
 
-  const rows = await page.evaluate((max) => {
+  let rows = await page.evaluate((max) => {
     const trs = Array.from(document.querySelectorAll('table tbody tr'));
 	console.log(`found: ${trs.length} trs.`);
     const out = [];
@@ -81,6 +81,9 @@ export async function fetchLatestHeadlines({ url, limit = 10, userAgent, headles
   }, limit);
 
   await browser.close();
+
+  // sort newest last (based on publishDatetime)
+  rows = rows.reverse();
 
   // Also log what we parsed (Node side)
   for (const r of rows) {
