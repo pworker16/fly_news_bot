@@ -14,7 +14,8 @@ const APPROVED_EXCHANGES = new Set([
 
 // סוגי נייר רצויים (לא חובה, אבל עוזר לפסול ETFs)
 const APPROVED_QUOTE_TYPES = new Set([
-  'EQUITY' // מניות
+  'EQUITY', // מניות
+  'ETF' // קרנות סל
 ]);
 
 // נירמול טיקר: מסיר $, רווחים, רישיות
@@ -110,6 +111,11 @@ export async function passesListingAndCap(rawTicker, opts = {}) {
     if (!quoteType || !APPROVED_QUOTE_TYPES.has(quoteType)) {
       return { ok: false, reason: 'quote_type_not_equity', data };
     }
+  }
+
+  // החרגת ETF מבדיקת שווי שוק (גם אם 0/חסר)
+  if (quoteType === 'ETF') {
+    return { ok: true, data: { ...data, note: 'etf_bypassed_market_cap' } };
   }
 
   // בדיקת שווי שוק
