@@ -27,6 +27,7 @@ const CATEGORIES = [
   "Index Changes & Rebalances",
   "Ownership & Fund Transactions",
   "Stock Split",
+  "Internal Trade",
   "Other",
 ];
 
@@ -95,6 +96,10 @@ const FEW_SHOTS = [
   // Stock Split
   { title: "Outset Medical announces 1-for-15 reverse stock split", label: "Stock Split" },
   { title: "Cellectar Biosciences announces 1-for-30 reverse stock split", label: "Stock Split" },
+
+  // internal trade
+  { title: "Snowflake's Raghunathan sells $2.63M of common shares", label: "Internal Trade" },
+  { title: "Roku's Ozgen sells $5.05M of common shares", label: "Internal Trade" },
 ];
 
 // ---------- Single-title (kept for convenience) ----------
