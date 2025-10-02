@@ -58,6 +58,8 @@ jobs:
           general:       ${{ vars.general }}
           tech_analysis:       ${{ vars.tech_analysis }}
           events:       ${{ vars.events }}
+          GOOGLE_CLASSIFIER_MODEL:       ${{ vars.GOOGLE_CLASSIFIER_MODEL }}
+          GOOGLE_API_KEY_CLASSIFIER:       ${{ vars.GOOGLE_API_KEY_CLASSIFIER }}
 
           
         run: npm start
