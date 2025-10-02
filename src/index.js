@@ -103,6 +103,7 @@ async function main() {
       "Primary Offering",
       "Exchange Listings & Transfers",
       "Stock Split",
+	  "Internal Trade",
     ];
 
     // row structure is:
