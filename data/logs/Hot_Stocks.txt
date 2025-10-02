@@ -173,3 +173,5 @@ DigitalOcean expands AI offerings, introduces AI Partner Program
 Nokia to license technology from HP Enterprise
 TotalEnergies enters farm-down agreement with CarbonVault
 TD Synnex acquires Gateway Computer, terms undisclosed
+FICO announces platform to deliver Scores directly to customers
+Credit bureaus sink after FICO launches platform to bypass them
