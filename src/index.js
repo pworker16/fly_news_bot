@@ -85,6 +85,7 @@ async function main() {
       "dividend per share",
       "What You Missed",
       "Buy/Sell:",
+	  "Opening Day:",
       "Morning Movers:",
       "Market Update:",
       "Energy Action:",
