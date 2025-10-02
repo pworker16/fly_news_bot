@@ -44,6 +44,7 @@ if(articleUrl) articleLink = `\n\n**[קישור לכתבה](<${articleUrl}>)**`;
 const content = `${tickersLine}${summary}${tag}${articleLink}`;
 
 await axios.post(webhookUrl, { content: content }, { timeout: 15_000 });
-log('Posted to Discord', category);
+log('Posted to Discord:', headline);
+
 return true;
 }
