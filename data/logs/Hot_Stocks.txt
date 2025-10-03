@@ -287,3 +287,4 @@ Video: Here's the bullish analyst view that put a charge in Plug Power
 Chevron says fire at El Segundo Refinery now out
 Teamsters at Sysco Portland authorize strike
 VinFast Auto says armored Lac Hong 900 LX built on VF 9 platform
+Unity discloses security vulnerability on versions 2017.1 and later
