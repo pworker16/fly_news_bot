@@ -124,15 +124,15 @@ function removeNonContentElements(document) {
  */
 export async function fetchAndExtract({ url, userAgent }) {
   log('Fetching article HTML:', url);
-  const res = await axios.get(url, {
-    timeout: 20000,
-    maxRedirects: 5,
-    responseType: 'text',
-    headers: {
-      'User-Agent': userAgent || 'Mozilla/5.0',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-    }
-  });
+  // const res = await axios.get(url, {
+  //   timeout: 20000,
+  //   maxRedirects: 5,
+  //   responseType: 'text',
+  //   headers: {
+  //     'User-Agent': userAgent || 'Mozilla/5.0',
+  //     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  //   }
+  // });
   
   const { finalUrl, html } = await fetchFinalHtml(url);
   
