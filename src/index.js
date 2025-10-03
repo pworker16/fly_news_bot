@@ -249,6 +249,7 @@ async function main() {
 
       // Summarize with Gemini using local content
       let summary;
+      const logPath = logPathForCategory(LOG_DIR, category);
       try {
         summary = await summarizeWithGemini({
           apiKey: GOOGLE_API_KEY,
@@ -291,7 +292,6 @@ async function main() {
 
       // Finally mark as processed
       log("[V] Successfuly sent to discord - ", title);
-      const logPath = logPathForCategory(LOG_DIR, category);
       appendLine(logPath, title);
     }
 
