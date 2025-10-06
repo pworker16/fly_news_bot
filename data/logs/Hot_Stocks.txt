@@ -366,3 +366,4 @@ Booking, Figma, Zillow among app partners highlighted at OpenAI DevDay
 Trump says medium, heavy duty truck tariffs to start on November 1
 Spotify announces integration with ChatGPT
 Zillow announces integration with ChatGPT
+Coursera announces integration with ChatGPT
