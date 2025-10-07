@@ -37,6 +37,7 @@ const FEW_SHOTS = [
   { title: "Genius Sports CFO Nick Taylor to depart, Bryan Castellani to succeed", label: "Position Change" },
   { title: "NN, Inc. promotes Gregg Cottage to chief information officer", label: "Position Change" },
   { title: "Fresenius Medical appoints Joseph Turk as CEO, Care Enablement", label: "Position Change" },
+  { title: "Algorhythm appoints Kapil Gupta, Scott Thorn to board of directors", label: "Position Change" },
 
   // Notable Stock Movements
   { title: "GoodRx jumps 21% to $5.14 in late trading", label: "Notable Stock Movements" },
