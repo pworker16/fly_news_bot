@@ -91,6 +91,8 @@ async function main() {
       "Energy Action:",
 	  "Treasury Market Summary:",
       "Closing Bell Movers:",
+	  "Crypto Currents:",
+	  "AI Daily:",
     ];
 
     const EXCLUDED_CLASSES = [
