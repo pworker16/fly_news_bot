@@ -504,3 +504,5 @@ Apivia Courtage to bring AI to contact centers with SoundHound's platform
 Square introduces bitcoin payment tools for local businesses
 Intuitive Surgical announces U.S. FDA cleared software advancements
 National Energy Services, KDC secure award for integrated well delivery campaign
+SS&C to power retirement services for The Trust Company of Tennessee
+Haleon selects Salesforce for healthcare professional engagement with AI
