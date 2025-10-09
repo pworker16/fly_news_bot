@@ -101,6 +101,7 @@ const FEW_SHOTS = [
   // internal trade
   { title: "Snowflake's Raghunathan sells $2.63M of common shares", label: "Internal Trade" },
   { title: "Roku's Ozgen sells $5.05M of common shares", label: "Internal Trade" },
+  { title: "Conagra Brands director buys $187.2K in common stock", label: "Internal Trade" },
 ];
 
 // ---------- Single-title (kept for convenience) ----------
