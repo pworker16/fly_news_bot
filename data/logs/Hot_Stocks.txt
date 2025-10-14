@@ -781,3 +781,6 @@ Salesforce teams with Stripe, OpenAI to build instant checkout integration
 Verisk Analytics announces launch of pet health insurance program
 NetApp announces collaboration with Cisco on converged infrastructure
 NetApp deepens collaboration with Google Cloud
+Edible Garden now available at Kroger's
+Clover Health expands platform to third-party partners
+Smackover Lithium files feasibility study for SWA project
