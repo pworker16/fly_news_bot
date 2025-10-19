@@ -1108,3 +1108,5 @@ Summit announces ivonescimab, chemo showed improvement in primary endpoint
 Novartis presents new Pluvicto data, showed improvement in rPFS
 Moderna announces data on flu, pandemic flu candidates at IDWeek 2025
 AstraZeneca, Daiichi's Datroway demonstrated significant improvement in OS, PFS
+AstraZeneca, Daiichi Sankyo announce Enhertu demonstrated improvement in IDFS
+AstraZeneca, Daiichi announce results from DESTINY-Breast11 Phase III trial
