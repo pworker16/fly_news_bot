@@ -1137,3 +1137,4 @@ User reports indicate problems at Snapchat, says Downdetector
 User reports indicate problems at Roblox, says Downdetector
 User reports indicate problems at Roku, says Downdetector
 IBM, Groq partner to accelerate enterprise AI deployment
+Coinbase says many users unable to access Coinbase due to AWS outage
