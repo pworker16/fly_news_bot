@@ -1176,3 +1176,6 @@ Globalstar deploys new ground station equipment in Alaska
 AeroVironment awarded U.S. Army contract for Kinesis software
 NCR Voyix, Wex team up to power fleet card transactions at the pump
 Uniti Wholesale announces new data center presence at MDC San Diego
+Glass Lewis joins ISS in recommending vote against Tesla CEO pay plan
+Tesla comments on second firm recommending no vote on Musk pay
+Robinhood says services impacted by AWS issues
