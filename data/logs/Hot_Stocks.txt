@@ -1186,3 +1186,4 @@ Peloton enters collaboration with Hospital for Special Surgery
 AWS continues to investigate root cause for network connectivity issues
 Kroger to hire over 18,000 associates to prepare for holiday season
 GE HealthCare announces collaborations with two medical systems on AI technology
+10x Genomics announces partnership with Anthropic
