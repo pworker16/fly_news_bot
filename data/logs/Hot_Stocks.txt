@@ -1179,3 +1179,4 @@ Uniti Wholesale announces new data center presence at MDC San Diego
 Glass Lewis joins ISS in recommending vote against Tesla CEO pay plan
 Tesla comments on second firm recommending no vote on Musk pay
 Robinhood says services impacted by AWS issues
+AWS says still experiencing elevated errors across availability zones in US-EAST
