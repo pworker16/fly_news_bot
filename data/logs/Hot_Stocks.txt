@@ -1276,3 +1276,4 @@ OpenAI announces ChatGPT Atlas browser
 Netflix names Mattel, Hasbro co-master toy licensees for KPop Demon Hunters
 OpenAI introduces new AI-enabled browser ChatGPT Atlas
 Elastic announces Agent Builder to build custom AI agents
+OpenAI new browser available today on macOS worldwide
