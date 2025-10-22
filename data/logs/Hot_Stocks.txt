@@ -1342,3 +1342,5 @@ WTW Radar integrates with Snowflake for data integration, real-time insights
 Charles River enters ADC drug discovery pact with Francis Crick Institute
 Applied Digital announces $5B AI factory lease agreement
 Heartflow introduces Heartflow PCI Navigator
+ExlService, Schneider announces digital transformation initiative
+Capital One authorizes repurchase of up to $16B of shares
