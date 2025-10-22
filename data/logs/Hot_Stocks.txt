@@ -1356,3 +1356,5 @@ Arteris, Alibaba DAMO extend partnership to accelerate RISC-V SoC designs
 Google calls CMA decision 'disappointing, disproportionate and unwarranted'
 SoundHound AI, Telarus announce strategic partnership
 Micron announces customer sampling of 192GB SOCAMM2
+Alcoa secures 10-year energy contract for Massena Operations
+Alcoa announces $60M capital investment in New York smelter
