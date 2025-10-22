@@ -1337,3 +1337,7 @@ Biogen to present additional results from Phase 3 study of dapirolizumab pegol
 Brookfield launches Brookfield Private Equity Fund Canada
 Amarc, Freeport-McMoRan complete 2025 Aurora drill program at JOY District
 Walmart, Avery Dennison announce new RFID innovation for fresh categories
+Life360 announce Life360 Pet GPS tracker
+WTW Radar integrates with Snowflake for data integration, real-time insights
+Charles River enters ADC drug discovery pact with Francis Crick Institute
+Applied Digital announces $5B AI factory lease agreement
