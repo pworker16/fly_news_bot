@@ -1500,3 +1500,5 @@ Applied Materials announces 4% global workforce reduction
 Summit Therapeutics jumps after CAO buys $500,000 shares
 Baker Hughes reports Q3 RPO of $35.3B, including record IET RPO of $32.1B
 Anthropic to expand Google Cloud use, increase compute resources up to 1M TPUs
+Intel says 18A yields will not be at 'industry acceptable level' until 2027
+EA announces partnership with Stability AI
