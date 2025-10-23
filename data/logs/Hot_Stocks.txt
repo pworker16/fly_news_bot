@@ -1498,3 +1498,5 @@ Target to cut around 1,800 corporate roles
 XPO, Inc to recognize $35M charge related to Allianz litigation
 Applied Materials announces 4% global workforce reduction
 Summit Therapeutics jumps after CAO buys $500,000 shares
+Baker Hughes reports Q3 RPO of $35.3B, including record IET RPO of $32.1B
+Anthropic to expand Google Cloud use, increase compute resources up to 1M TPUs
