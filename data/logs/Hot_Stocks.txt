@@ -1767,3 +1767,4 @@ California AG says will not oppose OpenAI's recapitalization plan
 Nvidia announces NVQLink for coupling GPU computing with quantum processors
 Nvidia says working with Oracle, DOE to build AI supercomputer
 Western Union announces USDPT stablecoin on Solana
+Air Lease announces lease placement of one new Airbus A321-200neo
