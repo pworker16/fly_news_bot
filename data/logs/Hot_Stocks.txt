@@ -1766,3 +1766,4 @@ GlobalFoundries to invest EUR 1.1B to expand chip manufacturing in Germany
 California AG says will not oppose OpenAI's recapitalization plan
 Nvidia announces NVQLink for coupling GPU computing with quantum processors
 Nvidia says working with Oracle, DOE to build AI supercomputer
+Western Union announces USDPT stablecoin on Solana
