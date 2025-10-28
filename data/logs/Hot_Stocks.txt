@@ -1763,3 +1763,5 @@ Arista, Ciena move lower after Nvidia takes stake in Nokia
 Nokia jumps 21% to $7.64 after Nvidia takes 2.9% stake
 Adobe, Google Cloud announce expansion of strategic partnership
 GlobalFoundries to invest EUR 1.1B to expand chip manufacturing in Germany
+California AG says will not oppose OpenAI's recapitalization plan
+Nvidia announces NVQLink for coupling GPU computing with quantum processors
