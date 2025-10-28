@@ -1775,3 +1775,5 @@ Nvidia, Oracle to build AI supercomputer for U.S. Department of Energy
 CoreWeave to expand commercial business into U.S. federal market
 Electronic Arts announce free-to-play game Battlefield REDSEC
 Stellantis to supply 5,000 Level 4 vehicles powered by Nvidia system to Uber
+Integral Ad Science integrated by TikTok Pangle for brand safety features
+Lucid Group working on Level 4 autonomous driving, powered by Nvidia
