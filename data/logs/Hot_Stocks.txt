@@ -1804,3 +1804,4 @@ Flowserve divests asbestos liability
 Aurora Innovation expands driverless trucking service to El Paso
 Hormel Foods forms partnership with Forward Consumer Partners
 Paramount Skydance, 1888 Studios enter into 10-year lease agreement
+Rigetti Computing announces support for Nvidia NVQLink
