@@ -1778,3 +1778,10 @@ Stellantis to supply 5,000 Level 4 vehicles powered by Nvidia system to Uber
 Integral Ad Science integrated by TikTok Pangle for brand safety features
 Lucid Group working on Level 4 autonomous driving, powered by Nvidia
 Stellantis announces new collaboration with Nvidia, Uber and Foxconn
+Super Micro plans to deliver next-generation Nvidia AI platforms
+Lilly partners with Nvidia to build AI supercomputer, medicine discovery
+Flex to accelerate deployment of giga-scale AI factories with Nvidia
+Synopsys to enhance AI integrations for manufacturing with Nvidia
+Pure Storage, Cisco announce new FlashStack Cisco Validated Design
+HP Enterprise announces expanded Nvidia AI Computing portfolio
+VAST Data, Leidos introduce agentic cybersecurity with Nvidia AI
