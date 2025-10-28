@@ -1788,3 +1788,4 @@ VAST Data, Leidos introduce agentic cybersecurity with Nvidia AI
 Zoom says working with Nvidia to deliver customizable AI to enterprise
 HP Enterprise to build 'Mission' and 'Vision' supercomputers with Nvidia
 Cisco unveils N9100, first Nvidia partner-developed data center switch
+CrowdStrike collaborating with Nvidia through Charlotte AI AgentWorks
