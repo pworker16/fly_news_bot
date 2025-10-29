@@ -1930,3 +1930,4 @@ Microsoft confirms experiencing Azure Portal Access issues
 Alaska Air experiencing disruption due to outage impacting Microsoft Azure
 BNY Mellon decreases prime lending rate to 7.00%
 KeyCorp lowers prime lending rate to 7.00% from 7.25%, effective October 30
+M&T Bank decreases prime rate to 7%
