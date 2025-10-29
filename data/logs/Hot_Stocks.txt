@@ -1929,3 +1929,4 @@ Microsoft says investigating reports of issues with 365 services
 Microsoft confirms experiencing Azure Portal Access issues
 Alaska Air experiencing disruption due to outage impacting Microsoft Azure
 BNY Mellon decreases prime lending rate to 7.00%
+KeyCorp lowers prime lending rate to 7.00% from 7.25%, effective October 30
