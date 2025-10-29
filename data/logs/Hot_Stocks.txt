@@ -1926,3 +1926,4 @@ Confluent announces advancements to Streaming Agents
 Boeing says to exit the year 'very soundly' at 42/month rate for 737
 Modine says data center visibility extends '3-5 years out'
 Microsoft says investigating reports of issues with 365 services
+Microsoft confirms experiencing Azure Portal Access issues
