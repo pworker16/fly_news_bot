@@ -1924,3 +1924,4 @@ Argenx says Phase 3 myasthenia gravis study met primary endpoint
 Boeing says doesn't want 777x charges to be continuous quarterly issue
 Confluent announces advancements to Streaming Agents
 Boeing says to exit the year 'very soundly' at 42/month rate for 737
+Modine says data center visibility extends '3-5 years out'
