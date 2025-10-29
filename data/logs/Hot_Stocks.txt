@@ -1928,3 +1928,4 @@ Modine says data center visibility extends '3-5 years out'
 Microsoft says investigating reports of issues with 365 services
 Microsoft confirms experiencing Azure Portal Access issues
 Alaska Air experiencing disruption due to outage impacting Microsoft Azure
+BNY Mellon decreases prime lending rate to 7.00%
