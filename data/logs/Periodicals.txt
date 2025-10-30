@@ -399,3 +399,6 @@ General Motors to furlough 5,500 workers at EV, battery plants, Bloomberg says
 Target layoffs marred by technical Zoom glitch, Bloomberg reports
 Tesla Robotaxis keep crashing in Austin, Texas, Electrek reports
 OpenAI laying groundwork for IPO at up to $1T valuation, Reuters reports
+OpenAI restructuring has 'no impact' on other cases, The Information reports
+Amazon opens $11B AI data center in Indiana, CNBC reports
+Former L3Harris exec pleads guilty to selling zero-day exploits, Cyberscoop says
