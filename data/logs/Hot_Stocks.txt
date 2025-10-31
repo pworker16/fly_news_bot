@@ -2102,3 +2102,4 @@ AbbVie raises dividend 5.5%, beginning with dividend payable in February, 2026
 LPL Financial announces lower fees, streamlined pricing on platforms
 Grainger narrows FY25 operating cash flow view to $2.1B-$2.2B from $2.05B-$2.25B
 Joby Aviation begins manufacturing propeller blades at Ohio facility
+Sealsq announces initiative on integrated post-quantum cybersecurity for AVs
