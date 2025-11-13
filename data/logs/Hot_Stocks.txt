@@ -2844,3 +2844,4 @@ Jumia Technologies targets FY26 loss before income tax ($25M)-($30M)
 Google under investigation by EU over suspected news search abuse
 Disney provides Q1 segment guidance
 Disney provides FY26 segment guidance
+Bitfarms plans to convert Washington site to HPC/AI workloads
