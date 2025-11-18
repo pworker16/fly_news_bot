@@ -3113,3 +3113,5 @@ Anthropic to purchase $30B of Azure compute capacity as part of pact
 Cloudflare says 'believe incident is now resolved'
 Federato raises $100M Series D led by Growth Equity at GS Alternatives
 Anthropic says Amazon remains primary cloud provider
+FDA approves Genmab's Epkinly for follicular lymphoma indications
+Klarna available on Apple Pay in Denmark, Spain, Sweden
