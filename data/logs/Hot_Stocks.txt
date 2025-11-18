@@ -3127,3 +3127,5 @@ ServiceNow announces set of new and forthcoming integrations with Microsoft
 Arrowhead announces FDA approval of Redemplo for FCS
 Spotify looking into issues with the app
 Waymo to roll out robotaxi services to five new cities in 2026
+AbbVie announces FDA approval of Epkinly in combo with rituximab, lenalidomide
+Judge rules in favor of Meta over FTC in antitrust trial
