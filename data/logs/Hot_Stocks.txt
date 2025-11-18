@@ -3122,3 +3122,5 @@ Google announces launch of Gemini 3 model
 EA SPORTS announces plans for EA SPORTS F1 game series
 Charter announces strategic collaboration with AWS
 Arrowhead's plozasiran approved by FDA in familial chylomicronemia syndrome
+Genmab announces Epkinly combination approved by FDA for lymphoma
+ServiceNow announces set of new and forthcoming integrations with Microsoft
