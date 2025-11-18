@@ -3107,3 +3107,7 @@ Fortinet, Crime Stoppers launch global cybercrime program
 Trump says health insurance companies have 'ripped off America long enough'
 Nordsee One Offshore signs five-year PPA with Shell
 Home Depot says consumer uncertainty, housing pressure impacting demand
+Microsoft, Nvidia to invest in Anthropic as part of new partnerships
+Nvidia to invest up to $10B in Anthropic, Microsoft up to $5B
+Anthropic to purchase $30B of Azure compute capacity as part of pact
+Cloudflare says 'believe incident is now resolved'
