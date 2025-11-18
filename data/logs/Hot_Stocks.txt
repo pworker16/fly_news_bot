@@ -3111,3 +3111,5 @@ Microsoft, Nvidia to invest in Anthropic as part of new partnerships
 Nvidia to invest up to $10B in Anthropic, Microsoft up to $5B
 Anthropic to purchase $30B of Azure compute capacity as part of pact
 Cloudflare says 'believe incident is now resolved'
+Federato raises $100M Series D led by Growth Equity at GS Alternatives
+Anthropic says Amazon remains primary cloud provider
