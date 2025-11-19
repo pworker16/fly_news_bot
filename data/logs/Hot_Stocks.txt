@@ -3221,3 +3221,5 @@ Humain forms partnership with Nvidia Cloud Partner Global AI
 HUMAIN announces partnership with xAI to build next-gen AI compute power
 Warner Music, Udio agree to resolve copyright infringement litigation
 AMD, Cisco Humain to form JV to deliver AI infrastructure
+AMD, Cisco, Humain to form JV to deliver AI infrastructure
+AWS, Humain to deploy and manage up to 150,000 AI accelerators in Riyadh DC
