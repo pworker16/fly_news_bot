@@ -3220,3 +3220,4 @@ Adobe, Humain partner to build AI models, AI-powered applications
 Humain forms partnership with Nvidia Cloud Partner Global AI
 HUMAIN announces partnership with xAI to build next-gen AI compute power
 Warner Music, Udio agree to resolve copyright infringement litigation
+AMD, Cisco Humain to form JV to deliver AI infrastructure
