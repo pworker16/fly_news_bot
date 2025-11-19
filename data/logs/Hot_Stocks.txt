@@ -3178,3 +3178,5 @@ Nano Nuclear Energy completes full-system testing on ALIP technology
 Teva Pharmaceutical unveils Teva Rise
 Oklo, Siemens sign contract for power conversion system for Aurora powerhouse
 Dime Community announces plans to open Locust Valley branch
+Harmony Biosciences doses first patient in BP1.15205 trial
+Palo Alto Networks and IBM to offer Quantum-Safe Readiness solution
