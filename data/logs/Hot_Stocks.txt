@@ -3147,3 +3147,5 @@ Workday, Google Cloud enter BigQuery partnership
 Broadridge announces strategic partnership with Xceptor
 Palantir announces multi-year, multi-million-pound investment by PwC UK
 Magna announces new facility in the Jiujiang Economic Development Zone
+Cloudflare CTO says 'failed customers' amid Tuesday outage
+Amazon's Zoox welcoming first public riders in San Francisco
