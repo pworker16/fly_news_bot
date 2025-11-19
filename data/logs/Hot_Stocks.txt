@@ -3193,3 +3193,7 @@ Coco partners with Shake Shack and Uber Eats
 OpenText expands partnership with Google Cloud to deliver AI solutions
 Broadcom announces availability of Brocade X8 Directors, G820 56-port switch
 Philips, Cortechs.ai extend partnership to advance quantitative neuroimaging
+Progress Software brings its RAG-as-a-Service platform to AWS Marketplace
+Santander Chile proposes to incorporate PagoNxt as partner of Getnet Chile
+TD Bank launches Amazon Shop with Points
+Lowe's says 'encouraged' to see improvement in DIY projects
