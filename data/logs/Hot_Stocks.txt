@@ -3249,3 +3249,4 @@ TSE, STMicroelectronics sign 15-year physical power purchase agreement
 Adobe, Humain announce AI partnership at U.S.-Saudi Investment Forum
 Kyndryl announces three-year partnership with Vodafone Idea
 Elf Beauty launches in Gulf Cooperation Council with Sephora
+IBM, Cisco to collaborate on networked distributed quantum computing groundwork
