@@ -677,3 +677,4 @@ Coinbase to launch prediction market powered by Kalshi, The Information says
 MLB reaches new media deals with NBC, ESPN, Netflix, Athletic reports
 Humain to deploy up to 600,000 Nvidia GPUs in Saudi Arabia, U.S. in next 3 years
 Trump mulls EO giving federal government control over AI rules, Verge says
+Salesforce's Slack to stop direct service in China, The Information reports
