@@ -3529,3 +3529,5 @@ AlphaTON secures $82.5M strategic GPU infrastructure
 Deere: Row crop farmers continuing to face challenging farm fundamentals
 Penn Entertainment, Kambi Group extend retail sportsbook platform agreement
 TelevisaUnivision reaches multi-year distribution agreement with YouTube
+S&P Global announces new integrations with Amazon Web Services
+Interactive Brokers reports November DARTs up 29% vs. last year
