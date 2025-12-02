@@ -3613,3 +3613,4 @@ Amazon announces expansion of Nova portfolio with four models
 NetApp announces collaboration with AWS for AI services
 Amazon Web Services announces enhancements for Bedrock AgentCore
 Varonis announces integration with AWS Security Hub
+DoE selects TVA, Holtetc to support early deployments of small modular reactors
