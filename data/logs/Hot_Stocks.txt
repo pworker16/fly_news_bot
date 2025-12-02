@@ -3611,3 +3611,4 @@ Amazon Web Services announces three frontier agents
 Amazon Web Services announces AWS AI Factories
 Amazon announces expansion of Nova portfolio with four models
 NetApp announces collaboration with AWS for AI services
+Amazon Web Services announces enhancements for Bedrock AgentCore
