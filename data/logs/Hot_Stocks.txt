@@ -3605,3 +3605,9 @@ Walmart: Thanksgiving, including Cyber Monday, largely in line with expectation
 Coca-Cola says consumer 'incrementally a little worse,' not 'apocalyptically'
 Union Pacific says 'favorable' natural gas prices 'encouraging for us'
 State Attorneys General announce $700M Play settlement with Google
+NetApp enters collaboration with Amazon Web Services
+Amazon announces general availability of Trainium3 UltraServers
+Amazon Web Services announces three frontier agents
+Amazon Web Services announces AWS AI Factories
+Amazon announces expansion of Nova portfolio with four models
+NetApp announces collaboration with AWS for AI services
