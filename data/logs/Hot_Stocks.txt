@@ -3682,3 +3682,6 @@ Delaware Supreme Court affirms lower court dismissal of claims against IDT
 Datadog expands collaboration agreement with AWS
 President Trump resets Corporate Average Fuel Economy standards
 Lucid says Q4 'might be a good quarter for us'
+Salesforce reports Q3 ccRPO up 11% y/y
+Snowflake raises FY25 product revenue view to $4.446B from $4.395B
+Snowflake, Anthropic announce $200M partnership
