@@ -3685,3 +3685,5 @@ Lucid says Q4 'might be a good quarter for us'
 Salesforce reports Q3 ccRPO up 11% y/y
 Snowflake raises FY25 product revenue view to $4.446B from $4.395B
 Snowflake, Anthropic announce $200M partnership
+Accenture, Snowflake expand generative AI collaboration
+Snowflake doubles AWS Marketplace growth year-over-year
