@@ -3679,3 +3679,4 @@ Salesforce introduces Agentforce 360 for AWS
 Amazon says Sony Pictures Core now available on Prime Video in U.S., Canada
 Intel says keeping networking division within company
 Delaware Supreme Court affirms lower court dismissal of claims against IDT
+Datadog expands collaboration agreement with AWS
