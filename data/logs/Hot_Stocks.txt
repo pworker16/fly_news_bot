@@ -3761,3 +3761,4 @@ Amazon Web Services announces Graviton5 processor
 Merck Animal Health announces conditional FDA approval of Exzolt Cattle-CA1
 Halozyme wins preliminary injunction against Merck's Keytruda SC in Germany
 FDA issues early alert on Abbott glucose monitor sensors
+Microsoft reports new capabilities, higher commercial pricing for Microsoft 365
