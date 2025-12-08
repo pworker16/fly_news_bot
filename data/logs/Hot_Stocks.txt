@@ -3858,3 +3858,5 @@ UMC licenses iSiPP300 silicon photonics technology from imec
 Circle Internet partners with Bybit to expand USD Coin access
 Air Products, Yara announce plans for low-emission ammonia projects
 BigBear.ai opens new office in Abu Dhabi
+Galapagos announce new ATALANTA-1 study data at ASH meeting
+IBM, Riyadh Air team to make Riyadh Air AI-native airline
