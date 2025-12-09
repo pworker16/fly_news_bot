@@ -847,3 +847,5 @@ Apple's Srouji tells staff not leaving 'anytime soon,' Bloomberg reports
 Mobileye laying off 5% of global workforce, Globes reports
 NextEra, Exxon Mobil to develop gigawatt data center for hyperscaler, CNBC says
 Commerce to open up exports of Nvidia H200 chips to China, Semafor says
+China still considering limiting access to Nvidia's H200 chips, FT reports
+Trump says same China export approach to apply to Intel, AMD, Reuters reports
