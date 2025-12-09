@@ -850,3 +850,5 @@ Commerce to open up exports of Nvidia H200 chips to China, Semafor says
 China still considering limiting access to Nvidia's H200 chips, FT reports
 Trump says same China export approach to apply to Intel, AMD, Reuters reports
 OpenAI's Altman works to correct course, beat back Google threat, WSJ says
+Instacart algorithm prices same products differently between customers, CR says
+FDA probe into COVID vaccines includes adults, Bloomberg reports
