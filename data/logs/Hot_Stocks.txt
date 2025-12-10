@@ -3946,3 +3946,4 @@ S&P Global announces multi-year strategic partnership with Google Cloud
 MercadoLibre enters commercial agreement with Agility Robotics
 Georgia Power reaches agreement with PIA Staff of Georgia PSC
 Progress Software brings Agentic AI to Telerik, Kendo UI release
+Adobe launches Photoshop, Express, Acrobat for ChatGPT
