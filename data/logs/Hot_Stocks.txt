@@ -3992,3 +3992,7 @@ Verizon Business, Denver Broncos partner to enhance stadium operations
 Payoneer Global partners with Oscilar for real-time fraud intelligence
 Coinbase selects Chainlink CCIP as exclusive bridging solution
 Critical Metals says Tanbreez test work results support refinery JV in Romania
+CoreWeave announces contract with Runway for AI video models
+Rivian reveals AI chip to replace Nvidia in future R2 vehicles
+Rivian CEO discuses first in-house autonomy processor at AI event
+Rivian unveils custom silicon autonomy platform
