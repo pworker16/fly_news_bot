@@ -3996,3 +3996,5 @@ CoreWeave announces contract with Runway for AI video models
 Rivian reveals AI chip to replace Nvidia in future R2 vehicles
 Rivian CEO discuses first in-house autonomy processor at AI event
 Rivian unveils custom silicon autonomy platform
+Comcast, Amazon announce launch of Amazon Luna cloud gaming on Xfinity
+Rogers launches Amazon Luna on Rogers Xfinity
