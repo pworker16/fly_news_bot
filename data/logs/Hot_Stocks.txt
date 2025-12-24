@@ -4232,3 +4232,4 @@ Agios Pharmaceuticals' Aqvesme to be introduced at $425K per patient per year
 IQM Quantum Computers, Telefonica to install two quantum computers in Spain
 Biohaven reports BHV-7000 trial misses primary endpoint
 Mondelez announces voluntary recall of Baked Bites Brookies
+Nvidia, Groq enter non-exclusive inference technology licensing agreement
