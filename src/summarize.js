@@ -8,7 +8,7 @@ import { log } from './utils/logger.js';
  */
 export async function summarizeWithGemini({ apiKey, flyText, articleText }) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
   const MAX_TEXT = Number(process.env.MAX_TEXT_CHARS || 20000);
   const MAX_HTML = Number(process.env.MAX_HTML_CHARS || 4000);
