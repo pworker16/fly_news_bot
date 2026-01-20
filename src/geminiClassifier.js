@@ -22,7 +22,7 @@ const CATEGORIES = [
   "Ownership & Fund Transactions",
   "Stock Split",
   "Internal Trade",
-  "Other",
+//  "Other",
 ];
 
 const FEW_SHOTS = [
