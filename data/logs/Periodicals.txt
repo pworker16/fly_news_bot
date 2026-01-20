@@ -995,3 +995,4 @@ Google asks U.S. judge to postpone order to share data, Reuters says
 Israel committee approves bill to allow Uber, Lyft in country, Reuters says
 Justice Department considers rollback of gun laws, Washington Post says
 Nvidia targeting 2026 launch for Windows on Arm notebook, DigiTimes reports
+Developer requests for Google's Gemini double over 5 months, Information reports
