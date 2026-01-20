@@ -1,5 +1,5 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { log } from './utils/logger.js';
+import { getGeminiModel } from "./utils/geminiClient.js";
 
 /**
  * Summarize using Gemini **without web access**.
@@ -7,8 +7,10 @@ import { log } from './utils/logger.js';
  * article text + a small slice of raw HTML for extra context.
  */
 export async function summarizeWithGemini({ apiKey, flyText, articleText }) {
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
+  const model = getGeminiModel({
+    apiKey,
+    model: "gemini-2.5-flash-lite",
+  });
 
   const MAX_TEXT = Number(process.env.MAX_TEXT_CHARS || 20000);
   const MAX_HTML = Number(process.env.MAX_HTML_CHARS || 4000);

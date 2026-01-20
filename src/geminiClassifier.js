@@ -1,15 +1,9 @@
 // newsClassifierGemini.js
 // npm i @google/generative-ai
-// export GOOGLE_API_KEY_CLASSIFIER=...
+// export GOOGLE_API_KEYS=[key1, key2]
 // export GOOGLE_CLASSIFIER_MODEL=gemini-1.5-flash (or your chosen model)
 
-import "dotenv/config";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY_CLASSIFIER);
-const model = genAI.getGenerativeModel({
-  model: process.env.GOOGLE_CLASSIFIER_MODEL,
-});
+import { getGeminiModel } from "./utils/geminiClient.js";
 
 const CATEGORIES = [
   "Position Change",
@@ -131,8 +125,16 @@ Return JSON only:
 `.trim();
 }
 
-export async function classifyTitle(title) {
+function getClassifierModel(apiKey) {
+  return getGeminiModel({
+    apiKey,
+    model: process.env.GOOGLE_CLASSIFIER_MODEL,
+  });
+}
+
+export async function classifyTitle(title, { apiKey } = {}) {
   const prompt = buildPrompt(title);
+  const model = getClassifierModel(apiKey);
   const res = await model.generateContent({
     contents: [{ role: "user", parts: [{ text: prompt }] }],
     generationConfig: { temperature: 0, maxOutputTokens: 50 },
@@ -196,8 +198,9 @@ Return JSON matching this schema:
 `.trim();
 }
 
-export async function classifyBatchOneCall(titles) {
+export async function classifyBatchOneCall(titles, { apiKey } = {}) {
   const prompt = buildBatchPrompt(titles);
+  const model = getClassifierModel(apiKey);
   const res = await model.generateContent({
     contents: [{ role: "user", parts: [{ text: prompt }] }],
     generationConfig: {
@@ -264,7 +267,7 @@ function postCorrectCategory(category, title) {
 }
 
 // ---------- Public batch wrapper with dedup ----------
-export async function classifyBatch(titles) {
+export async function classifyBatch(titles, { apiKey } = {}) {
   // De-duplicate to save tokens
   const map = new Map(); // title -> indices
   titles.forEach((t, i) => {
@@ -273,7 +276,7 @@ export async function classifyBatch(titles) {
   });
 
   const unique = Array.from(map.keys());
-  const uniqueResults = await classifyBatchOneCall(unique);
+  const uniqueResults = await classifyBatchOneCall(unique, { apiKey });
 
   // Fan-out back to original indices (avoid shared refs)
   const results = new Array(titles.length);
