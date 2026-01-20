@@ -46,8 +46,8 @@ async function main() {
       throw new Error("Missing GOOGLE_API_KEYS");
     }
     const MAX_GEMINI_REQUESTS_PER_MIN = Math.min(
-      13,
-      Number(process.env.GEMINI_MAX_REQUESTS_PER_MIN || 13)
+      10,
+      Number(process.env.GEMINI_MAX_REQUESTS_PER_MIN || 10)
     );
     const TITLES_PER_SEGMENT = Math.max(1, MAX_GEMINI_REQUESTS_PER_MIN - 1);
     const MIN_MS_BETWEEN_GEMINI_REQUESTS = Math.ceil(
@@ -159,6 +159,16 @@ async function main() {
 
     const segmentCount = Math.ceil(filteredRows.length / TITLES_PER_SEGMENT);
     let lastGeminiRequestAt = 0;
+    let currentKeyIndex = 0;
+    const setGeminiKeyByIndex = (keyIndex) => {
+      currentKeyIndex = ((keyIndex % GOOGLE_API_KEYS.length) + GOOGLE_API_KEYS.length) % GOOGLE_API_KEYS.length;
+      const apiKey = GOOGLE_API_KEYS[currentKeyIndex];
+      setActiveGeminiKey(apiKey);
+      log(
+        `Using Gemini API key ${currentKeyIndex + 1}/${GOOGLE_API_KEYS.length}`
+      );
+      return apiKey;
+    };
     const waitForGeminiSlot = async () => {
       if (!lastGeminiRequestAt) return;
       const elapsedMs = Date.now() - lastGeminiRequestAt;
@@ -167,10 +177,43 @@ async function main() {
         await new Promise((resolve) => setTimeout(resolve, waitMs));
       }
     };
+    const waitForMinuteLap = async () => {
+      if (!lastGeminiRequestAt) return;
+      const elapsedMs = Date.now() - lastGeminiRequestAt;
+      const waitMs = Math.max(0, 60_000 - elapsedMs);
+      if (waitMs > 0) {
+        log(`Gemini 429 received. Waiting ${Math.ceil(waitMs / 1000)}s.`);
+        await new Promise((resolve) => setTimeout(resolve, waitMs));
+      }
+    };
+    const isRateLimitError = (err) =>
+      err?.status === 429 || err?.statusText === "Too Many Requests";
+    const runGeminiWithRetry = async (fn) => {
+      await waitForGeminiSlot();
+      try {
+        const result = await fn();
+        lastGeminiRequestAt = Date.now();
+        return result;
+      } catch (err) {
+        if (!isRateLimitError(err)) throw err;
+        await waitForMinuteLap();
+        try {
+          const result = await fn();
+          lastGeminiRequestAt = Date.now();
+          return result;
+        } catch (retryErr) {
+          if (!isRateLimitError(retryErr)) throw retryErr;
+          setGeminiKeyByIndex(currentKeyIndex + 1);
+          await waitForGeminiSlot();
+          const result = await fn();
+          lastGeminiRequestAt = Date.now();
+          return result;
+        }
+      }
+    };
     for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex++) {
       const segmentStart = Date.now();
-      const apiKey = GOOGLE_API_KEYS[segmentIndex % GOOGLE_API_KEYS.length];
-      setActiveGeminiKey(apiKey);
+      setGeminiKeyByIndex(segmentIndex % GOOGLE_API_KEYS.length);
 
       const segmentRows = filteredRows.slice(
         segmentIndex * TITLES_PER_SEGMENT,
@@ -180,9 +223,9 @@ async function main() {
       if (!filteredTitles.length) continue;
 
       // send remaining rows to gemini for categorization
-      await waitForGeminiSlot();
-      const classifiedRows = await classifyBatch(filteredTitles);
-      lastGeminiRequestAt = Date.now();
+      const classifiedRows = await runGeminiWithRetry(() =>
+        classifyBatch(filteredTitles)
+      );
 
       // remove from classifiedRows all the rows that their category is found in the EXCLUDED_CLASSES list
       let rows = [];
@@ -284,12 +327,12 @@ async function main() {
         let summary;
         const logPath = logPathForCategory(LOG_DIR, category);
         try {
-          await waitForGeminiSlot();
-          summary = await summarizeWithGemini({
-            flyText: title,
-            articleText: articleText,
-          });
-          lastGeminiRequestAt = Date.now();
+          summary = await runGeminiWithRetry(() =>
+            summarizeWithGemini({
+              flyText: title,
+              articleText: articleText,
+            })
+          );
         } catch (e) {
           warn("Gemini summarize failed:", e.message);
           log("[X] Excluded due to: Failed to summarize - ", title);
