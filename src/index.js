@@ -211,13 +211,22 @@ async function main() {
           return result;
         } catch (retryErr) {
           if (!isRateLimitError(retryErr)) throw retryErr;
-          log("Gemini still rate-limited. Switching to next API key.");
-          setGeminiKeyByIndex(currentKeyIndex + 1);
-          await waitForGeminiSlot();
-          lastGeminiAttemptAt = Date.now();
-          const result = await fn();
-          lastGeminiRequestAt = Date.now();
-          return result;
+          let lastError = retryErr;
+          for (let keyOffset = 1; keyOffset < GOOGLE_API_KEYS.length; keyOffset++) {
+            log("Gemini still rate-limited. Switching to next API key.");
+            setGeminiKeyByIndex(currentKeyIndex + 1);
+            await waitForGeminiSlot();
+            lastGeminiAttemptAt = Date.now();
+            try {
+              const result = await fn();
+              lastGeminiRequestAt = Date.now();
+              return result;
+            } catch (nextErr) {
+              if (!isRateLimitError(nextErr)) throw nextErr;
+              lastError = nextErr;
+            }
+          }
+          throw lastError;
         }
       }
     };
