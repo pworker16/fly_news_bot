@@ -60,6 +60,7 @@ jobs:
           events:       ${{ vars.events }}
           GOOGLE_CLASSIFIER_MODEL:       ${{ vars.GOOGLE_CLASSIFIER_MODEL }}
           GOOGLE_API_KEY_CLASSIFIER:       ${{ vars.GOOGLE_API_KEY_CLASSIFIER }}
+          GOOGLE_API_KEYS:       ${{ vars.GOOGLE_API_KEYS }}
 
           
         run: npm start
