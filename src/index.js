@@ -14,6 +14,7 @@ import { postToDiscord } from "./notifyDiscord.js";
 import { fetchAndExtract } from "./fetchArticle.js";
 import { passesListingAndCap } from "./listingAndCapFilter.js";
 import { classifyBatch } from "./geminiClassifier.js";
+import { getGoogleApiKeys, setActiveGeminiKey } from "./utils/geminiClient.js";
 import { DateTime } from "luxon";
 
 function convertToIsraelTime(publishDatetime) {
@@ -40,9 +41,18 @@ async function main() {
     const LOG_DIR = process.env.LOG_DIR || "./data/logs";
     const USER_AGENT = process.env.USER_AGENT || "Mozilla/5.0";
     const HEADLESS = String(process.env.HEADLESS || "true") === "true";
-    const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-
-    if (!GOOGLE_API_KEY) throw new Error("Missing GOOGLE_API_KEY");
+    const GOOGLE_API_KEYS = getGoogleApiKeys();
+    if (!GOOGLE_API_KEYS.length) {
+      throw new Error("Missing GOOGLE_API_KEYS");
+    }
+    const MAX_GEMINI_REQUESTS_PER_MIN = Math.min(
+      13,
+      Number(process.env.GEMINI_MAX_REQUESTS_PER_MIN || 13)
+    );
+    const TITLES_PER_SEGMENT = Math.max(1, MAX_GEMINI_REQUESTS_PER_MIN - 1);
+    const MIN_MS_BETWEEN_GEMINI_REQUESTS = Math.ceil(
+      60_000 / MAX_GEMINI_REQUESTS_PER_MIN
+    );
 
     // Parse the webhooks from the .env file
     let WEBHOOKS = {};
@@ -147,154 +157,186 @@ async function main() {
       filteredRows.push(currentRow);
     }
 
-    // create a list of titles from the filtered rows
-    const filteredTitles = filteredRows.map((r) => r.title);
-
-    // send remaining rows to gemini for categorization
-    const classifiedRows = await classifyBatch(filteredTitles);
-
-    // remove from classifiedRows all the rows that their category is found in the EXCLUDED_CLASSES list
-    let rows = [];
-    for (const classifiedRow of classifiedRows) {
-      if (!EXCLUDED_CLASSES.includes(classifiedRow.category)) {
-        // find the original row to get the other fields
-        const originalRow = filteredRows.find(
-          (r) => r.title === classifiedRow.title
-        );
-        if (originalRow) {
-          rows.push(originalRow);
-        } else {
-          log(
-            "[X] Excluded due to: Original row not found - ",
-            classifiedRow.title
-          );
-        }
-      } else {
-        log("[X] Excluded due to: Class filter - ", classifiedRow.title);
+    const segmentCount = Math.ceil(filteredRows.length / TITLES_PER_SEGMENT);
+    let lastGeminiRequestAt = 0;
+    const waitForGeminiSlot = async () => {
+      if (!lastGeminiRequestAt) return;
+      const elapsedMs = Date.now() - lastGeminiRequestAt;
+      const waitMs = Math.max(0, MIN_MS_BETWEEN_GEMINI_REQUESTS - elapsedMs);
+      if (waitMs > 0) {
+        await new Promise((resolve) => setTimeout(resolve, waitMs));
       }
-    }
+    };
+    for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex++) {
+      const segmentStart = Date.now();
+      const apiKey = GOOGLE_API_KEYS[segmentIndex % GOOGLE_API_KEYS.length];
+      setActiveGeminiKey(apiKey);
 
-    // loop through the rows and process them
-    for (const row of rows) {
-      const { title, titleLink, rawCategory, tickers, publishDatetime } = row;
-      const category = normalizeCategory(rawCategory);
-      let israelTime = convertToIsraelTime(publishDatetime);
-      if (!israelTime) israelTime = `${publishDatetime} [US/NY]`;
-      log(
-        "Headline:",
-        title,
-        "| RawCat:",
-        rawCategory,
-        "=>",
-        category,
-        ", israelTime: ",
-        israelTime
+      const segmentRows = filteredRows.slice(
+        segmentIndex * TITLES_PER_SEGMENT,
+        segmentIndex * TITLES_PER_SEGMENT + TITLES_PER_SEGMENT
       );
+      const filteredTitles = segmentRows.map((r) => r.title);
+      if (!filteredTitles.length) continue;
 
-      // --- Normalize tickers to array ---
-      const tickersArr = Array.isArray(tickers)
-        ? tickers
-        : typeof tickers === "string"
-        ? tickers.split(/[,\s]+/).filter(Boolean)
-        : [];
+      // send remaining rows to gemini for categorization
+      await waitForGeminiSlot();
+      const classifiedRows = await classifyBatch(filteredTitles);
+      lastGeminiRequestAt = Date.now();
 
-      // filter out messages with tickers that are not in NASDAQ/NYSE and market cap are less then 1B$
-      let validTickers = [];
-      try {
-        const checks = await Promise.all(
-          tickersArr.map((t) => passesListingAndCap(t, { requireEquity: true }))
+      // remove from classifiedRows all the rows that their category is found in the EXCLUDED_CLASSES list
+      let rows = [];
+      for (const classifiedRow of classifiedRows) {
+        if (!EXCLUDED_CLASSES.includes(classifiedRow.category)) {
+          // find the original row to get the other fields
+          const originalRow = segmentRows.find(
+            (r) => r.title === classifiedRow.title
+          );
+          if (originalRow) {
+            rows.push(originalRow);
+          } else {
+            log(
+              "[X] Excluded due to: Original row not found - ",
+              classifiedRow.title
+            );
+          }
+        } else {
+          log("[X] Excluded due to: Class filter - ", classifiedRow.title);
+        }
+      }
+
+      // loop through the rows and process them
+      for (const row of rows) {
+        const { title, titleLink, rawCategory, tickers, publishDatetime } = row;
+        const category = normalizeCategory(rawCategory);
+        let israelTime = convertToIsraelTime(publishDatetime);
+        if (!israelTime) israelTime = `${publishDatetime} [US/NY]`;
+        log(
+          "Headline:",
+          title,
+          "| RawCat:",
+          rawCategory,
+          "=>",
+          category,
+          ", israelTime: ",
+          israelTime
         );
-        validTickers = tickersArr.filter((t, i) => checks[i]?.ok);
-        if (!validTickers.length) {
-          log("[X] Excluded due to: Market Cap or Exchange - ", title);
+
+        // --- Normalize tickers to array ---
+        const tickersArr = Array.isArray(tickers)
+          ? tickers
+          : typeof tickers === "string"
+          ? tickers.split(/[,\s]+/).filter(Boolean)
+          : [];
+
+        // filter out messages with tickers that are not in NASDAQ/NYSE and market cap are less then 1B$
+        let validTickers = [];
+        try {
+          const checks = await Promise.all(
+            tickersArr.map((t) => passesListingAndCap(t, { requireEquity: true }))
+          );
+          validTickers = tickersArr.filter((t, i) => checks[i]?.ok);
+          if (!validTickers.length) {
+            log("[X] Excluded due to: Market Cap or Exchange - ", title);
+            continue;
+          }
+        } catch (e) {
+          warn("Market Cap or Exchange check failed due to:", e.message);
+          log(
+            "[X] Excluded due to: Market Cap or Exchange check failed - ",
+            title
+          );
           continue;
         }
-      } catch (e) {
-        warn("Market Cap or Exchange check failed due to:", e.message);
-        log(
-          "[X] Excluded due to: Market Cap or Exchange check failed - ",
-          title
-        );
-        continue;
+
+        // Search news (last X minutes)
+        const article = await findRecentArticle({
+          query: title,
+          windowMin: SEARCH_WINDOW_MIN,
+        });
+        let articleText = title;
+        let finalUrl = titleLink;
+
+        if (article) {
+          log(
+            "Found article:",
+            article.title,
+            article.link,
+            article.pubDate?.toISOString()
+          );
+
+          // Fetch raw HTML and extract readable text
+          try {
+            const extracted = await fetchAndExtract({
+              url: article.link,
+              userAgent: USER_AGENT,
+            });
+            articleText = extracted.text;
+            finalUrl = extracted.link;
+          } catch (e) {
+            warn("Article fetch/extract failed due to:", e.message);
+            articleText = title;
+            finalUrl = titleLink;
+          }
+        }
+
+        // Summarize with Gemini using local content
+        let summary;
+        const logPath = logPathForCategory(LOG_DIR, category);
+        try {
+          await waitForGeminiSlot();
+          summary = await summarizeWithGemini({
+            flyText: title,
+            articleText: articleText,
+          });
+          lastGeminiRequestAt = Date.now();
+        } catch (e) {
+          warn("Gemini summarize failed:", e.message);
+          log("[X] Excluded due to: Failed to summarize - ", title);
+          appendLine(logPath, title);
+          continue;
+        }
+
+        // Cycle through webhook keys
+        let webhookKey = webhookKeys[webhookIndex];
+        if (webhookIndex === webhookKeys.length - 1) {
+          webhookIndex = 0;
+        } else {
+          webhookIndex++;
+        }
+        const webhookUrl = WEBHOOKS[webhookKey];
+
+        // Send to Discord
+        try {
+          await postToDiscord({
+            webhookUrl: webhookUrl,
+            category: category,
+            headline: title,
+            articleUrl: finalUrl ? finalUrl : "",
+            summary: summary,
+            tickers: validTickers.join(","),
+            publishDatetime: israelTime,
+          });
+        } catch (e) {
+          warn("Discord post failed:", e.message);
+          log("[X] Excluded due to: Post to Discord failed - ", title);
+          appendLine(logPath, title);
+          continue;
+        }
+
+        // Finally mark as processed
+        log("[V] Successfuly sent to discord - ", title);
+        appendLine(logPath, title);
       }
 
-      // Search news (last X minutes)
-      const article = await findRecentArticle({
-        query: title,
-        windowMin: SEARCH_WINDOW_MIN,
-      });
-      let articleText = title;
-      let finalUrl = titleLink;
-
-      if (article) {
-        log(
-          "Found article:",
-          article.title,
-          article.link,
-          article.pubDate?.toISOString()
-        );
-
-        // Fetch raw HTML and extract readable text
-        try {
-          const extracted = await fetchAndExtract({
-            url: article.link,
-            userAgent: USER_AGENT,
-          });
-          articleText = extracted.text;
-          finalUrl = extracted.link;
-        } catch (e) {
-          warn("Article fetch/extract failed due to:", e.message);
-          articleText = title;
-          finalUrl = titleLink;
+      if (segmentIndex < segmentCount - 1) {
+        const elapsedMs = Date.now() - segmentStart;
+        const waitMs = Math.max(0, 60_000 - elapsedMs);
+        if (waitMs > 0) {
+          log(`Waiting ${Math.ceil(waitMs / 1000)}s before next segment.`);
+          await new Promise((resolve) => setTimeout(resolve, waitMs));
         }
       }
-
-      // Summarize with Gemini using local content
-      let summary;
-      const logPath = logPathForCategory(LOG_DIR, category);
-      try {
-        summary = await summarizeWithGemini({
-          apiKey: GOOGLE_API_KEY,
-          flyText: title,
-          articleText: articleText,
-        });
-      } catch (e) {
-        warn("Gemini summarize failed:", e.message);
-        log("[X] Excluded due to: Failed to summarize - ", title);
-        appendLine(logPath, title);
-        continue;
-      }
-
-      // Cycle through webhook keys
-      let webhookKey = webhookKeys[webhookIndex];
-      if (webhookIndex === webhookKeys.length - 1) {
-        webhookIndex = 0;
-      } else {
-        webhookIndex++;
-      }
-      const webhookUrl = WEBHOOKS[webhookKey];
-
-      // Send to Discord
-      try {
-        await postToDiscord({
-          webhookUrl: webhookUrl,
-          category: category,
-          headline: title,
-          articleUrl: finalUrl ? finalUrl : "",
-          summary: summary,
-          tickers: validTickers.join(","),
-          publishDatetime: israelTime,
-        });
-      } catch (e) {
-        warn("Discord post failed:", e.message);
-        log("[X] Excluded due to: Post to Discord failed - ", title);
-        appendLine(logPath, title);
-        continue;
-      }
-
-      // Finally mark as processed
-      log("[V] Successfuly sent to discord - ", title);
-      appendLine(logPath, title);
     }
 
     log("Done.");
