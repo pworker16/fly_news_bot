@@ -159,6 +159,7 @@ async function main() {
 
     const segmentCount = Math.ceil(filteredRows.length / TITLES_PER_SEGMENT);
     let lastGeminiRequestAt = 0;
+    let lastGeminiAttemptAt = 0;
     let currentKeyIndex = 0;
     const setGeminiKeyByIndex = (keyIndex) => {
       currentKeyIndex = ((keyIndex % GOOGLE_API_KEYS.length) + GOOGLE_API_KEYS.length) % GOOGLE_API_KEYS.length;
@@ -178,8 +179,8 @@ async function main() {
       }
     };
     const waitForMinuteLap = async () => {
-      if (!lastGeminiRequestAt) return;
-      const elapsedMs = Date.now() - lastGeminiRequestAt;
+      const baseTime = lastGeminiAttemptAt || lastGeminiRequestAt || Date.now();
+      const elapsedMs = Date.now() - baseTime;
       const waitMs = Math.max(0, 60_000 - elapsedMs);
       if (waitMs > 0) {
         log(`Gemini 429 received. Waiting ${Math.ceil(waitMs / 1000)}s.`);
@@ -187,10 +188,15 @@ async function main() {
       }
     };
     const isRateLimitError = (err) =>
-      err?.status === 429 || err?.statusText === "Too Many Requests";
+      err?.status === 429 ||
+      err?.statusText === "Too Many Requests" ||
+      err?.cause?.status === 429 ||
+      err?.cause?.statusText === "Too Many Requests" ||
+      /429/.test(err?.message || "");
     const runGeminiWithRetry = async (fn) => {
       await waitForGeminiSlot();
       try {
+        lastGeminiAttemptAt = Date.now();
         const result = await fn();
         lastGeminiRequestAt = Date.now();
         return result;
@@ -198,13 +204,17 @@ async function main() {
         if (!isRateLimitError(err)) throw err;
         await waitForMinuteLap();
         try {
+          await waitForGeminiSlot();
+          lastGeminiAttemptAt = Date.now();
           const result = await fn();
           lastGeminiRequestAt = Date.now();
           return result;
         } catch (retryErr) {
           if (!isRateLimitError(retryErr)) throw retryErr;
+          log("Gemini still rate-limited. Switching to next API key.");
           setGeminiKeyByIndex(currentKeyIndex + 1);
           await waitForGeminiSlot();
+          lastGeminiAttemptAt = Date.now();
           const result = await fn();
           lastGeminiRequestAt = Date.now();
           return result;
