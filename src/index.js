@@ -41,6 +41,8 @@ async function main() {
     const LOG_DIR = process.env.LOG_DIR || "./data/logs";
     const USER_AGENT = process.env.USER_AGENT || "Mozilla/5.0";
     const HEADLESS = String(process.env.HEADLESS || "true") === "true";
+    const REQUIRE_MARKET_CAP_FILTER =
+      String(process.env.REQUIRE_MARKET_CAP_FILTER || "false") === "true";
     const GOOGLE_API_KEYS = getGoogleApiKeys();
     if (!GOOGLE_API_KEYS.length) {
       throw new Error("Missing GOOGLE_API_KEYS");
@@ -292,23 +294,27 @@ async function main() {
           : [];
 
         // filter out messages with tickers that are not in NASDAQ/NYSE and market cap are less then 1B$
-        let validTickers = [];
-        try {
-          const checks = await Promise.all(
-            tickersArr.map((t) => passesListingAndCap(t, { requireEquity: true }))
-          );
-          validTickers = tickersArr.filter((t, i) => checks[i]?.ok);
-          if (!validTickers.length) {
-            log("[X] Excluded due to: Market Cap or Exchange - ", title);
+        let validTickers = tickersArr;
+        if (REQUIRE_MARKET_CAP_FILTER) {
+          try {
+            const checks = await Promise.all(
+              tickersArr.map((t) =>
+                passesListingAndCap(t, { requireEquity: true })
+              )
+            );
+            validTickers = tickersArr.filter((t, i) => checks[i]?.ok);
+            if (!validTickers.length) {
+              log("[X] Excluded due to: Market Cap or Exchange - ", title);
+              continue;
+            }
+          } catch (e) {
+            warn("Market Cap or Exchange check failed due to:", e.message);
+            log(
+              "[X] Excluded due to: Market Cap or Exchange check failed - ",
+              title
+            );
             continue;
           }
-        } catch (e) {
-          warn("Market Cap or Exchange check failed due to:", e.message);
-          log(
-            "[X] Excluded due to: Market Cap or Exchange check failed - ",
-            title
-          );
-          continue;
         }
 
         // Search news (last X minutes)
