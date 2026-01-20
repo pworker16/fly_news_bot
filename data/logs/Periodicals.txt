@@ -994,3 +994,4 @@ Musk wants OpenAI, Microsoft to pay $79B-$134B in damages, Bloomberg says
 Google asks U.S. judge to postpone order to share data, Reuters says
 Israel committee approves bill to allow Uber, Lyft in country, Reuters says
 Justice Department considers rollback of gun laws, Washington Post says
+Nvidia targeting 2026 launch for Windows on Arm notebook, DigiTimes reports
