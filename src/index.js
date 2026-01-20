@@ -45,10 +45,14 @@ async function main() {
     if (!GOOGLE_API_KEYS.length) {
       throw new Error("Missing GOOGLE_API_KEYS");
     }
-    const MAX_GEMINI_REQUESTS_PER_MIN = Number(
-      process.env.GEMINI_MAX_REQUESTS_PER_MIN || 13
+    const MAX_GEMINI_REQUESTS_PER_MIN = Math.min(
+      13,
+      Number(process.env.GEMINI_MAX_REQUESTS_PER_MIN || 13)
     );
     const TITLES_PER_SEGMENT = Math.max(1, MAX_GEMINI_REQUESTS_PER_MIN - 1);
+    const MIN_MS_BETWEEN_GEMINI_REQUESTS = Math.ceil(
+      60_000 / MAX_GEMINI_REQUESTS_PER_MIN
+    );
 
     // Parse the webhooks from the .env file
     let WEBHOOKS = {};
@@ -154,6 +158,15 @@ async function main() {
     }
 
     const segmentCount = Math.ceil(filteredRows.length / TITLES_PER_SEGMENT);
+    let lastGeminiRequestAt = 0;
+    const waitForGeminiSlot = async () => {
+      if (!lastGeminiRequestAt) return;
+      const elapsedMs = Date.now() - lastGeminiRequestAt;
+      const waitMs = Math.max(0, MIN_MS_BETWEEN_GEMINI_REQUESTS - elapsedMs);
+      if (waitMs > 0) {
+        await new Promise((resolve) => setTimeout(resolve, waitMs));
+      }
+    };
     for (let segmentIndex = 0; segmentIndex < segmentCount; segmentIndex++) {
       const segmentStart = Date.now();
       const apiKey = GOOGLE_API_KEYS[segmentIndex % GOOGLE_API_KEYS.length];
@@ -167,7 +180,9 @@ async function main() {
       if (!filteredTitles.length) continue;
 
       // send remaining rows to gemini for categorization
-      const classifiedRows = await classifyBatch(filteredTitles, { apiKey });
+      await waitForGeminiSlot();
+      const classifiedRows = await classifyBatch(filteredTitles);
+      lastGeminiRequestAt = Date.now();
 
       // remove from classifiedRows all the rows that their category is found in the EXCLUDED_CLASSES list
       let rows = [];
@@ -269,11 +284,12 @@ async function main() {
         let summary;
         const logPath = logPathForCategory(LOG_DIR, category);
         try {
+          await waitForGeminiSlot();
           summary = await summarizeWithGemini({
-            apiKey,
             flyText: title,
             articleText: articleText,
           });
+          lastGeminiRequestAt = Date.now();
         } catch (e) {
           warn("Gemini summarize failed:", e.message);
           log("[X] Excluded due to: Failed to summarize - ", title);
