@@ -4443,3 +4443,4 @@ GCM Grosvenor partners with Model ML for investment workflow automation
 Treasury cancels contracts with Booz Allen Hamilton
 Bank of Montreal announces launch of Blue Rewards
 Diversified Royalty announces amendment to AIR MILES licenses
+Microsoft introduces Maia 200 inference accelerator
