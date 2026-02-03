@@ -4850,3 +4850,5 @@ Dassault Systemes, Nvidia partner to build industrial AI platform
 JetBlue, Contour Airlines enter interline agreement
 Instacart to remove priority access in Seattle
 Exact Sciences 'applauds' passage of MCED legislation
+Intel hires architect to build GPUs
+UTime unit wins $50M smart server intent agreement
